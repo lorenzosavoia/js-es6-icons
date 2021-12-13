@@ -128,8 +128,9 @@ const arrayData =[
 	
 // });
 
+
 const container = document.querySelector('.container');
-const select = document.getElementById('filter');
+let select = document.getElementById('filter');
 
 let animal = arrayData.filter((element) => {
 	return element.type == 'animal';
@@ -141,24 +142,54 @@ let user = arrayData.filter((element) => {
 	return element.type == 'user';
 });
 
+console.log(user,animal,vegetable);
+
 
 
 for (let i = 0; i < arrayData.length; i++) {
-
 	container.innerHTML += cardGenerator(arrayData[i]);
-	
 }
-select.addEventListener('change', function () { 
+
+select.addEventListener('change', function () {
+	switch (select.value) {
+		case 'all':
+			container.innerHTML = '';
+			console.log('sono all');
+
+			arrayData.forEach((element) => {
+				container.innerHTML += cardGenerator(element);
+			});
+			break;
+		case 'animal':
+			container.innerHTML = '';
+			console.log('sono aniaml');
+			animal.forEach((element) => {
+				container.innerHTML += cardGenerator(element);
+			});
+			break;
+		case 'vegetable':
+			container.innerHTML = '';
+			console.log('sono verdure');
+			vegetable.forEach((element) => {
+				container.innerHTML += cardGenerator(element);
+			});
+			break;
+		case 'user':
+			container.innerHTML = '';
+			console.log('sono user');
+			user.forEach((element) => {
+				container.innerHTML += cardGenerator(element);
+			});
+			break;
+	}
 	
-
-
-}, false);
+});
 
 
 function cardGenerator(element) {
 
 	const template = `
-        <div>
+        <div class"${element.type} ">
  			<div><i class="${element.family} ${element.prefix}${element.name}" style="color:${element.color}"></i></div>
  			<div>${element.name}</div>
  		</div>
